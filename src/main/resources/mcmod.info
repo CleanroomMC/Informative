@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "informative",
+  "name": "Informative",
+  "description": "Information galore. An improved, efficient rewrite that brings in the best of both WAILA + TOP.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["CleanroomMC"],
-  "credits": "Authors of this project",
+  "credits": "Rongmario, ISurreal, Xemnes, Tech22",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
