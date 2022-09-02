@@ -4,10 +4,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
+
 /**
  * Represents the current state of the tooltip
  */
 public interface ITooltip<T extends ITooltip<T>> {
+
+    List<IElement> getChildren();
 
     <M extends ITooltip<M>> M master();
 
@@ -96,5 +100,9 @@ public interface ITooltip<T extends ITooltip<T>> {
      * @return current state of the ITooltip, for method-chaining
      */
     T entity(Class<? extends Entity> entityClass);
+
+    default boolean isEmpty() {
+        return getChildren().isEmpty();
+    }
 
 }

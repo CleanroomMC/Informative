@@ -59,6 +59,11 @@ public abstract class ElementPanel<T extends ElementPanel<T>> implements IElemen
     }
 
     @Override
+    public List<IElement> getChildren() {
+        return children;
+    }
+
+    @Override
     public <M extends ITooltip<M>> M master() {
         return master == null ? (M) this : (M) master;
     }

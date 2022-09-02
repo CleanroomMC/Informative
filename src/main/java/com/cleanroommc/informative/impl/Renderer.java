@@ -78,9 +78,7 @@ public enum Renderer {
                 }
         }
         if (render) {
-            setupOverlayRendering(scaledWidth, scaledHeight, scale);
-            renderElements((int) (scaledWidth * scale), (int) (scaledHeight * scale));
-            setupOverlayRendering(scaledWidth, scaledHeight, 1.0F);
+            renderElements(scale, scaledWidth, scaledHeight);
         }
     }
 
@@ -140,6 +138,19 @@ public enum Renderer {
         return true;
     }
 
+    private void renderElements(double scale, double scaledWidth, double scaledHeight) {
+        Tooltip tooltip = this.tooltip;
+        if (!tooltip.isEmpty()) {
+            setupOverlayRendering(scaledWidth, scaledHeight, scale);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.disableLighting();
+            int x = (int) ((scaledWidth - tooltip.getWidth()) / 2);
+            int y = 5;
+            tooltip.render(x, y, (int) scaledWidth, (int) scaledHeight);
+            setupOverlayRendering(scaledWidth, scaledHeight, 1.0F);
+        }
+    }
+
     private void setupOverlayRendering(double scaledWidth, double scaledHeight, double scale) {
         GlStateManager.clear(256);
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
@@ -148,15 +159,6 @@ public enum Renderer {
         GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);
-    }
-
-    private void renderElements(int scaledWidth, int scaledHeight) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.disableLighting();
-        Tooltip tooltip = this.tooltip;
-        int x = (scaledWidth - tooltip.getWidth()) / 2;
-        int y = 5;
-        tooltip.render(x, y, scaledWidth, scaledHeight);
     }
 
 }
