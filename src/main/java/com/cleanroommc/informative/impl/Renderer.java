@@ -2,6 +2,8 @@ package com.cleanroommc.informative.impl;
 
 import com.cleanroommc.informative.Informative;
 import com.cleanroommc.informative.api.IInformant;
+import com.cleanroommc.informative.impl.intel.FluidIntelObject;
+import com.cleanroommc.informative.impl.intel.Intel;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -12,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
@@ -36,6 +39,7 @@ public enum Renderer {
 
     private final Tooltip tooltip = new Tooltip();
     private final Intel intel = new Intel();
+    private final FluidIntelObject fluidIntelObject = new FluidIntelObject(intel);
 
     @SubscribeEvent
     public void onRenderGameOverlay(RenderGameOverlayEvent.Pre event) {
@@ -106,7 +110,8 @@ public enum Renderer {
         if (fluid != null) {
             Tooltip tooltip = this.tooltip;
             Intel intel = this.intel;
-            intel.set(state, pos, mouseOver.hitVec, mouseOver.sideHit, FluidUtil.getFilledBucket(new FluidStack(fluid, 1000)));
+            intel.set(fluidIntelObject, pos, mouseOver.hitVec, mouseOver.sideHit, ItemStack.EMPTY);
+            fluidIntelObject.set(fluid, state);
             List<IInformant> informants = Informative.INSTANCE.getInformants();
             for (int i = 0; i < informants.size(); i++) {
                 informants.get(i).informFluid(tooltip, intel, player, world, partialTicks);

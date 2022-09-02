@@ -11,8 +11,7 @@ public interface IInformant {
 
     }
 
-    // TODO: Fluidlogged-API Support
-    default void informFluid(ITooltip<?> tooltip, IIntel<IBlockState> intel, EntityPlayerSP player, WorldClient world, float partialTicks) {
+    default void informFluid(ITooltip<?> tooltip, IIntel<IFluidIntelObject> intel, EntityPlayerSP player, WorldClient world, float partialTicks) {
 
     }
 

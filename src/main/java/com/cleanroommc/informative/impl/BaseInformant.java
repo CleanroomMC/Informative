@@ -1,5 +1,6 @@
 package com.cleanroommc.informative.impl;
 
+import com.cleanroommc.informative.api.IFluidIntelObject;
 import com.cleanroommc.informative.api.IInformant;
 import com.cleanroommc.informative.api.IIntel;
 import com.cleanroommc.informative.api.ITooltip;
@@ -26,18 +27,15 @@ public class BaseInformant implements IInformant {
                     .text(ModUtil.getModName(block.getItem()));
         }
     }
-    
+
     @Override
-    public void informFluid(ITooltip<?> tooltip, IIntel<IBlockState> intel, EntityPlayerSP player, WorldClient world, float partialTicks) {
-        ItemStack bucket = intel.getPickBlock();
-        if (!bucket.isEmpty()) {
-            Fluid fluid = FluidRegistry.lookupFluidForBlock(intel.getObject().getBlock());
-            tooltip.horizontal()
-                    .item(bucket)
-                    .vertical(4)
-                    .text(I18n.format(fluid.getUnlocalizedName()))
-                    .text(new ResourceLocation(FluidRegistry.getDefaultFluidName(fluid)).getNamespace());
-        }
+    public void informFluid(ITooltip<?> tooltip, IIntel<IFluidIntelObject> intel, EntityPlayerSP player, WorldClient world, float partialTicks) {
+        IFluidIntelObject fluidObj = intel.getObject();
+        tooltip.horizontal()
+                .item(fluidObj.getBucket())
+                .vertical(0)
+                .text(fluidObj.getFluidStack().getLocalizedName())
+                .text(ModUtil.getModName(FluidRegistry.getModId(fluidObj.getFluidStack())));
     }
 
 }

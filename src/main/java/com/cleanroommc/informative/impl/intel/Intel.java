@@ -1,4 +1,4 @@
-package com.cleanroommc.informative.impl;
+package com.cleanroommc.informative.impl.intel;
 
 import com.cleanroommc.informative.api.IIntel;
 import net.minecraft.block.state.IBlockState;
@@ -8,7 +8,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.Fluid;
 
 public class Intel implements IIntel {
 
@@ -18,7 +17,6 @@ public class Intel implements IIntel {
     private EnumFacing facing;
     private ItemStack pickBlock, rawState;
     private TileEntity tileEntity;
-    private Fluid fluid;
 
     public void set(Object object, BlockPos pos, Vec3d hitVector, EnumFacing facing, ItemStack pickBlock) {
         this.object = object;
@@ -33,7 +31,6 @@ public class Intel implements IIntel {
     private void reset() {
         this.rawState = null;
         this.tileEntity = null;
-        this.fluid = null;
     }
 
     @Override

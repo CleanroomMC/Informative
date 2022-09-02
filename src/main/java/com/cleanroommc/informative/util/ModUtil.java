@@ -21,14 +21,7 @@ public class ModUtil {
         if (resourceLocation == null) {
             return "Minecraft";
         }
-        final String modId = resourceLocation.getNamespace();
-        return modIdToName.computeIfAbsent(modId, k -> {
-            String name = Loader.instance().getIndexedModList().get(modId).getName();
-            if (name == null) {
-                name = WordUtils.capitalize(modId);
-            }
-            return name;
-        });
+        return getModName(resourceLocation.getNamespace());
     }
 
     public static String getModName(Entity entity) {
@@ -41,6 +34,16 @@ public class ModUtil {
             return "Minecraft";
         }
         return container.getName();
+    }
+
+    public static String getModName(String modId) {
+        return modIdToName.computeIfAbsent(modId, k -> {
+            String name = Loader.instance().getIndexedModList().get(modId).getName();
+            if (name == null) {
+                name = WordUtils.capitalize(modId);
+            }
+            return name;
+        });
     }
 
     private ModUtil() { }
